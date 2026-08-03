@@ -1,5 +1,5 @@
 {
-  "name": "VDR Production",
+  "name": "vincentdosreis.com",
   "description": "Production audiovisuelle, réalisation de films, publicités, fictions et écriture de scénarios par Vincent Dos Reis.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
