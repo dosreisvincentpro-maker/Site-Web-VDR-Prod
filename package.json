@@ -34,7 +34,7 @@
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.3",
-    "@rollup/rollup-linux-x64-musl": "^4.0.0"
+    "@rollup/rollup-linux-x64-glibc": "^4.0.0"
   },
   "engines": {
     "node": ">=18"
