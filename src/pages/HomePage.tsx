@@ -47,7 +47,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
     featuredProjects[3] = featuredProjects[4];
     featuredProjects[4] = temp;
   }
-  const showreelProject = VIDEO_PROJECTS.find((p) => p.id === 'vdr-06') || VIDEO_PROJECTS[0];
+  const showreelProject = VIDEO_PROJECTS.find((p) => p.youtubeId === 'ZvVTAVucOpA') || VIDEO_PROJECTS.find((p) => p.id === 'vdr-18') || VIDEO_PROJECTS[0];
 
   return (
     <div className="space-y-20 pb-16">

@@ -66,7 +66,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
               
               {/* TikTok Video Embed Iframe (Official Embed v2) */}
               <iframe
-                src={`https://www.tiktok.com/embed/v2/${tiktokId}?lang=fr-FR&autoplay=1`}
+                src={`https://www.tiktok.com/embed/v2/${tiktokId}?lang=fr-FR&autoplay=1&playsinline=1`}
                 title={project.title}
                 className="w-full h-full border-0 relative z-10"
                 allow="autoplay; encrypted-media; picture-in-picture"
@@ -112,10 +112,10 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
           /* STANDARD LANDSCAPE YOUTUBE PLAYER LAYOUT */
           <div className="relative aspect-video bg-black w-full border-b theme-border shrink-0">
             <iframe
-              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&rel=0`}
+              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=0&playsinline=1&enablejsapi=1&rel=0`}
               title={project.title}
               className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; autoplay"
               allowFullScreen
             />
           </div>
