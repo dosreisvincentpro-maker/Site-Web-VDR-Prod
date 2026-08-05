@@ -78,7 +78,21 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
             allow="autoplay; encrypted-media"
           />
           <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-[var(--bg-main)]/90 via-[var(--bg-main)]/70 to-[var(--bg-main)]/40 pointer-events-none" />
-          <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-transparent to-[var(--bg-main)]/60 pointer-events-none" />          {/* Speaker Sound Toggle Button (Mobile only) */}
+          <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-transparent to-[var(--bg-main)]/60 pointer-events-none" />          {/* Speaker Sound Toggle & Showreel Buttons (Mobile only) */}
+          <div className="absolute bottom-3 left-3 z-20 sm:hidden">
+            <button
+              onClick={() => onSelectVideo(showreelProject)}
+              className="px-2 py-1 bg-black/50 hover:bg-black/80 text-white/90 hover:text-white border border-white/25 hover:border-white/60 font-semibold text-[9px] uppercase tracking-wider transition-all duration-200 flex items-center space-x-1.5 shadow-md rounded-full active:scale-95 cursor-pointer backdrop-blur-sm"
+              aria-label="Voir le showreel"
+              title="Voir le showreel / démo"
+            >
+              <div className="w-3 h-3 rounded-full bg-[var(--accent-primary)]/90 text-white flex items-center justify-center shrink-0">
+                <Play className="w-1.5 h-1.5 ml-0.5 fill-current" />
+              </div>
+              <span className="truncate">SHOWREEL</span>
+            </button>
+          </div>
+
           <div className="absolute bottom-3 right-3 z-20 sm:hidden">
             <button
               onClick={toggleSound}
