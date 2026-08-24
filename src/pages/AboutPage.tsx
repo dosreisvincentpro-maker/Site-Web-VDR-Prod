@@ -145,7 +145,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ setActiveTab }) => {
               }`}>
                 <div className="p-4 sm:p-5 theme-bg-card border theme-border rounded-sm hover:theme-accent-border transition-all duration-300 shadow-sm space-y-3 overflow-hidden">
                   {item.imageUrl && (
-                    <div className="relative w-full h-36 sm:h-44 overflow-hidden rounded-xs border theme-border group bg-zinc-900">
+                    <div className="relative w-full h-36 sm:h-48 overflow-hidden rounded-xs border theme-border group bg-zinc-900">
                       <img
                         src={item.imageUrl}
                         onError={(e) => {
@@ -166,7 +166,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ setActiveTab }) => {
                         }}
                         alt={item.title}
                         className={`w-full h-full object-cover transition-transform duration-700 sm:group-hover:scale-105 filter ${
-                          item.imageUrl.includes('644295844')
+                          item.imageUrl.includes('chopalovitch')
+                            ? 'object-[center_32%] brightness-115 contrast-105'
+                            : item.imageUrl.includes('850573') || item.imageUrl.includes('AB002A')
+                            ? 'object-[center_32%] brightness-115 contrast-105'
+                            : item.imageUrl.includes('644295844')
                             ? 'object-[center_30%] brightness-115 contrast-105'
                             : item.imageUrl.includes('2018')
                             ? 'brightness-130 contrast-105 object-center'
