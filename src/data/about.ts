@@ -36,7 +36,7 @@ export const BIO_TIMELINE: BioTimelineItem[] = [
     role: "Acteur Théâtre & Télévision",
     description: "Premiers rôles au théâtre et apparitions télévisées. Découverte du jeu dramatique et de l'art du dialogue.",
     highlight: "Déclic pour la création scénique",
-    imageUrl: "/images/foto plateau chopalovitch 3.jpg"
+    imageUrl: "/images/foto plateau chopalovitch 2.jpg"
   },
   {
     year: "2004",
@@ -44,7 +44,7 @@ export const BIO_TIMELINE: BioTimelineItem[] = [
     role: "Auteur & Metteur en Scène",
     description: "Écriture de pièces originales et direction de comédiens. Exploration de la dynamique de plateau et de la mise en espace.",
     highlight: "Début de la passion de l'écriture",
-    imageUrl: "/images/AB002A_1.JPG"
+    imageUrl: "/images/850573_2.jpg"
   },
   {
     year: "2009",

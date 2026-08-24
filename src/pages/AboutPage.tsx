@@ -157,7 +157,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ setActiveTab }) => {
                             ? APP_IMAGES.featureFilmsPhoto.bundledUrl
                             : item.imageUrl.includes('644295844')
                             ? APP_IMAGES.behindCameraPhoto.bundledUrl
-                            : item.imageUrl.includes('AB002A')
+                            : item.imageUrl.includes('850573') || item.imageUrl.includes('AB002A')
                             ? APP_IMAGES.theaterDirectingPhoto.bundledUrl
                             : item.imageUrl.includes('chopalovitch')
                             ? APP_IMAGES.chopalovitchPhoto.bundledUrl

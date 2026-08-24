@@ -4,8 +4,8 @@ import aboutPagePortraitAsset from '../assets/images/lionelcecilio_1727164440_34
 import aboutBgAsset from '../assets/images/306943345_402543395395577_1624280455118530516_n.jpg';
 import standaloneAboutBgAsset from '../assets/images/504003585_9730148730429458_1180536948483756168_n.jpg';
 import timelineBgAsset from '../assets/images/unnamed.jpg';
-import chopalovitchAsset from '../assets/images/foto_plateau_chopalovitch_3.jpg';
-import ab002aAsset from '../assets/images/AB002A_1.JPG';
+import chopalovitchAsset from '../assets/images/foto_plateau_chopalovitch_2.jpg';
+import ab002aAsset from '../assets/images/850573_2.jpg';
 import behindCameraAsset from '../assets/images/644295844_10240923307558320_748844994663426488_n.jpg';
 import featureFilmsAsset from '../assets/images/472996971_924965393153372_61239502768032929_n.jpg';
 import elementProdAsset from '../assets/images/IMG_1688.jpg';
@@ -44,12 +44,12 @@ export const APP_IMAGES = {
     unsplashFallback: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1600'
   },
   chopalovitchPhoto: {
-    publicUrl: '/images/foto plateau chopalovitch 3.jpg',
+    publicUrl: '/images/foto plateau chopalovitch 2.jpg',
     bundledUrl: chopalovitchAsset,
     unsplashFallback: 'https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&q=80&w=800'
   },
   theaterDirectingPhoto: {
-    publicUrl: '/images/AB002A_1.JPG',
+    publicUrl: '/images/850573_2.jpg',
     bundledUrl: ab002aAsset,
     unsplashFallback: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800'
   },

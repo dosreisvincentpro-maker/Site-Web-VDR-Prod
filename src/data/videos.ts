@@ -505,7 +505,7 @@ export const VIDEO_PROJECTS: VideoProject[] = [
   },
   {
     id: "vdr-34",
-    title: 'Court-Métrage "Là où Attendent les Femmes" Teaser',
+    title: '"Là où Attendent les Femmes" Teaser Court-Métrage',
     category: "fiction",
     categories: ["fiction"],
     categoryLabel: "Fiction & Cinéma",
@@ -553,5 +553,22 @@ export const VIDEO_PROJECTS: VideoProject[] = [
     role: "Réalisateur, Scénariste & Producteur",
     featured: false,
     tags: ["Podcast", "La Presque Histoire du Roi Lion", "Vincent Dos Reis", "Les Crevettes Bleues", "La Trinité sur Mer", "2026"]
+  },
+  {
+    id: "vdr-37",
+    title: '"06" Court-Métrage',
+    category: "fiction",
+    categories: ["fiction"],
+    categoryLabel: "Fiction & Cinéma",
+    youtubeId: "jDxdDJmWtLg",
+    youtubeUrl: "https://youtu.be/jDxdDJmWtLg",
+    duration: "11:00",
+    year: "",
+    clientOrProject: "Court-Métrage",
+    description: 'Court-Métrage sélectionné dans les festivals, "Le jour le plus Court", "Commune Image" et au "Short Film Corner" du Festival de Cannes',
+    thumbnail: "https://img.youtube.com/vi/jDxdDJmWtLg/hqdefault.jpg",
+    role: "Réalisateur, Scénariste & Producteur",
+    featured: false,
+    tags: ["06", "Fiction", "Cinéma", "Court-Métrage", "Cannes", "Festival", "Vincent Dos Reis"]
   }
 ];
