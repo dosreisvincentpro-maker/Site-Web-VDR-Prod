@@ -1,12 +1,12 @@
 export type PageTab = 'accueil' | 'realisations' | 'apropos' | 'services' | 'contact';
 
-export type VideoCategory = 'all' | 'pub' | 'fiction' | 'clip' | 'corporate' | 'podcast' | 'tv' | 'social';
+export type VideoCategory = 'all' | 'showreel' | 'pub' | 'fiction' | 'clip' | 'corporate' | 'podcast' | 'tv' | 'social';
 
 export interface VideoProject {
   id: string;
   title: string;
-  category: 'pub' | 'fiction' | 'clip' | 'corporate' | 'podcast' | 'tv' | 'social';
-  categories?: ('pub' | 'fiction' | 'clip' | 'corporate' | 'podcast' | 'tv' | 'social')[];
+  category: 'showreel' | 'pub' | 'fiction' | 'clip' | 'corporate' | 'podcast' | 'tv' | 'social';
+  categories?: ('showreel' | 'pub' | 'fiction' | 'clip' | 'corporate' | 'podcast' | 'tv' | 'social')[];
   categoryLabel: string;
   youtubeId?: string; // YouTube Video ID or playlist reference
   youtubeUrl?: string; // Direct YouTube link to the video/channel

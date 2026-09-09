@@ -27,6 +27,7 @@ export const RealisationsPage: React.FC<RealisationsPageProps> = ({ onSelectVide
 
   const categories: { id: VideoCategory; label: string; count: number }[] = [
     { id: 'all', label: 'Toutes les vidéos', count: VIDEO_PROJECTS.length },
+    { id: 'showreel', label: 'Showreel', count: VIDEO_PROJECTS.filter((p) => isProjectInCategory(p, 'showreel')).length },
     { id: 'pub', label: 'Pubs & Films de Marque', count: VIDEO_PROJECTS.filter((p) => isProjectInCategory(p, 'pub')).length },
     { id: 'podcast', label: 'Podcasts', count: VIDEO_PROJECTS.filter((p) => isProjectInCategory(p, 'podcast')).length },
     { id: 'social', label: 'Réseaux Sociaux', count: VIDEO_PROJECTS.filter((p) => isProjectInCategory(p, 'social')).length },

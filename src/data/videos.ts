@@ -570,5 +570,40 @@ export const VIDEO_PROJECTS: VideoProject[] = [
     role: "Réalisateur, Scénariste & Producteur",
     featured: false,
     tags: ["06", "Fiction", "Cinéma", "Court-Métrage", "Cannes", "Festival", "Vincent Dos Reis"]
+  },
+  {
+    id: "vdr-showreel",
+    title: "SHOWREEL Vincent Dos Reis 2026",
+    category: "showreel",
+    categories: ["showreel"],
+    categoryLabel: "Showreel / Bande Démo",
+    youtubeId: "KR3RnP4yGZY",
+    youtubeUrl: "https://youtu.be/KR3RnP4yGZY",
+    duration: "00:59",
+    year: "2026",
+    clientOrProject: "Vincent Dos Reis",
+    description: "Bande démo / Showreel des réalisations de Vincent Dos Reis — Publicités, Télévision, Fictions, Clips & Films de marque.",
+    thumbnail: "https://img.youtube.com/vi/KR3RnP4yGZY/hqdefault.jpg",
+    role: "Réalisateur, Scénariste & Producteur",
+    featured: false,
+    tags: ["Showreel", "Démo", "Bande démo", "Vincent Dos Reis", "Réalisateur", "2026"]
   }
 ];
+
+export const SHOWREEL_PROJECT: VideoProject = VIDEO_PROJECTS.find((p) => p.id === "vdr-showreel") || {
+  id: "vdr-showreel",
+  title: "SHOWREEL Vincent Dos Reis 2026",
+  category: "showreel",
+  categories: ["showreel"],
+  categoryLabel: "Showreel / Bande Démo",
+  youtubeId: "KR3RnP4yGZY",
+  youtubeUrl: "https://youtu.be/KR3RnP4yGZY",
+  duration: "00:59",
+  year: "2026",
+  clientOrProject: "Vincent Dos Reis",
+  description: "Bande démo / Showreel des réalisations de Vincent Dos Reis — Publicités, Télévision, Fictions, Clips & Films de marque.",
+  thumbnail: "https://img.youtube.com/vi/KR3RnP4yGZY/hqdefault.jpg",
+  role: "Réalisateur, Scénariste & Producteur",
+  featured: false,
+  tags: ["Showreel", "Démo", "Bande démo", "Vincent Dos Reis", "Réalisateur", "2026"]
+};
