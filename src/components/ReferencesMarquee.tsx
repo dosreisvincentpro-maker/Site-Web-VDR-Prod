@@ -9,25 +9,36 @@ interface ReferenceCardProps {
 
 const ReferenceCard: React.FC<ReferenceCardProps> = ({ refItem, inGrid = false }) => {
   const [imgError, setImgError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const potentialLogoPath = `/images/logos/${refItem.slug}.png`;
+  const baseScale = refItem.scale || 1;
+  const currentScale = isHovered ? baseScale * 1.04 : baseScale;
 
   return (
     <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={`group relative flex items-center justify-center h-24 sm:h-28 ${
         inGrid ? 'w-full' : 'w-48 sm:w-56 mx-3'
       } p-4 sm:p-5 rounded-sm bg-white border border-black/10 hover:border-[var(--accent-primary)] hover:shadow-md transition-all duration-300 shadow-xs shrink-0 select-none cursor-default`}
       title={refItem.name}
     >
       {!imgError ? (
-        <img
-          src={encodeURI(refItem.logoUrl || potentialLogoPath)}
-          alt={`Logo ${refItem.name}`}
-          className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-          onError={() => setImgError(true)}
-        />
+        <div className="w-full h-full flex items-center justify-center overflow-hidden">
+          <img
+            src={encodeURI(refItem.logoUrl || potentialLogoPath)}
+            alt={`Logo ${refItem.name}`}
+            style={{
+              transform: `scale(${currentScale})`,
+              transformOrigin: 'center center',
+            }}
+            className="max-h-full max-w-full object-contain transition-transform duration-300 ease-out"
+            loading="lazy"
+            onError={() => setImgError(true)}
+          />
+        </div>
       ) : (
-        <span className="text-sm font-mono font-black text-gray-900 tracking-wider">
+        <span className="text-sm font-mono font-black text-gray-900 tracking-wider text-center px-2">
           {refItem.name.toUpperCase()}
         </span>
       )}

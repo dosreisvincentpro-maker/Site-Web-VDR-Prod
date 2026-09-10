@@ -48,7 +48,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
     featuredProjects[3] = featuredProjects[4];
     featuredProjects[4] = temp;
   }
-  const showreelProject = SHOWREEL_PROJECT || VIDEO_PROJECTS.find((p) => p.youtubeId === 'KR3RnP4yGZY') || VIDEO_PROJECTS[0];
+  const showreelProject = SHOWREEL_PROJECT || VIDEO_PROJECTS.find((p) => p.youtubeId === 'E7Rr8J0-u00') || VIDEO_PROJECTS[0];
 
   return (
     <div className="space-y-20 pb-16">
@@ -73,7 +73,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
         <div className="relative sm:absolute inset-0 z-0 h-[220px] xs:h-[260px] sm:h-full w-full overflow-hidden opacity-90 sm:opacity-40 sm:dark:opacity-70">
           <iframe
             ref={iframeRef}
-            src="https://www.youtube.com/embed/KR3RnP4yGZY?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=KR3RnP4yGZY&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1"
+            src="https://www.youtube.com/embed/E7Rr8J0-u00?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=E7Rr8J0-u00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1"
             title="Vincent Dos Reis - Background Video"
             className="w-[160%] h-[160%] min-w-full min-h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none object-cover"
             allow="autoplay; encrypted-media"
