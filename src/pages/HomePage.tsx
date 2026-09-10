@@ -18,7 +18,64 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo }) => {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
+  const videoContainerRef = React.useRef<HTMLDivElement>(null);
+  const [videoScale, setVideoScale] = React.useState<number>(1);
   const [isMuted, setIsMuted] = React.useState<boolean>(true);
+
+  // Forcer la qualité maximale Full HD (1080p) via l'API YouTube
+  const forceFullHDQuality = React.useCallback(() => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      const cw = iframeRef.current.contentWindow;
+      cw.postMessage(JSON.stringify({ event: 'command', func: 'setPlaybackQuality', args: ['hd1080'] }), '*');
+      cw.postMessage(JSON.stringify({ event: 'command', func: 'setPlaybackQualityRange', args: ['hd1080', 'hd1080'] }), '*');
+      cw.postMessage(JSON.stringify({ event: 'command', func: 'setSuggestedQuality', args: ['hd1080'] }), '*');
+    }
+  }, []);
+
+  // Calcul du ratio de couverture pour un canevas natif 1920x1080 (Full HD sur tous les écrans)
+  React.useEffect(() => {
+    const updateScale = () => {
+      if (!videoContainerRef.current) return;
+      const { clientWidth, clientHeight } = videoContainerRef.current;
+      if (clientWidth === 0 || clientHeight === 0) return;
+      const scaleX = clientWidth / 1920;
+      const scaleY = clientHeight / 1080;
+      // Recouvrement intégral avec 6% de marge anti-coupure
+      const cover = Math.max(scaleX, scaleY) * 1.06;
+      setVideoScale(cover);
+    };
+
+    updateScale();
+    const observer = new ResizeObserver(updateScale);
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
+    window.addEventListener('resize', updateScale);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateScale);
+    };
+  }, []);
+
+  // Écoute des événements YouTube pour réappliquer le 1080p au démarrage
+  React.useEffect(() => {
+    const handleMsg = (e: MessageEvent) => {
+      try {
+        const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        if (data && (data.event === 'onReady' || data.event === 'initialDelivery' || data.info?.playerState === 1)) {
+          forceFullHDQuality();
+        }
+      } catch {
+        // Ignorer messages non-JSON
+      }
+    };
+    window.addEventListener('message', handleMsg);
+    const timers = [600, 1500, 3000, 6000].map((delay) => setTimeout(forceFullHDQuality, delay));
+    return () => {
+      window.removeEventListener('message', handleMsg);
+      timers.forEach(clearTimeout);
+    };
+  }, [forceFullHDQuality]);
 
   const toggleSound = () => {
     const nextMute = !isMuted;
@@ -70,13 +127,24 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
         </div>
 
         {/* Background / Middle Video */}
-        <div className="relative sm:absolute inset-0 z-0 h-[220px] xs:h-[260px] sm:h-full w-full overflow-hidden opacity-90 sm:opacity-40 sm:dark:opacity-70">
+        <div
+          ref={videoContainerRef}
+          className="relative sm:absolute inset-0 z-0 h-[220px] xs:h-[260px] sm:h-full w-full overflow-hidden opacity-90 sm:opacity-40 sm:dark:opacity-70 bg-black"
+        >
           <iframe
             ref={iframeRef}
-            src="https://www.youtube.com/embed/E7Rr8J0-u00?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=E7Rr8J0-u00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1"
-            title="Vincent Dos Reis - Background Video"
-            className="w-[160%] h-[160%] min-w-full min-h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none object-cover"
-            allow="autoplay; encrypted-media"
+            src="https://www.youtube.com/embed/E7Rr8J0-u00?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=E7Rr8J0-u00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1&vq=hd1080&hd=1"
+            title="Vincent Dos Reis - Background Video Full HD"
+            style={{
+              width: '1920px',
+              height: '1080px',
+              transform: `translate(-50%, -50%) scale(${videoScale})`,
+              transformOrigin: 'center center',
+            }}
+            className="absolute top-1/2 left-1/2 pointer-events-none border-0 will-change-transform"
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            loading="eager"
+            onLoad={forceFullHDQuality}
           />
           <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-[var(--bg-main)]/90 via-[var(--bg-main)]/70 to-[var(--bg-main)]/40 pointer-events-none" />
           <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-transparent to-[var(--bg-main)]/60 pointer-events-none" />          {/* Speaker Sound Toggle & Showreel Buttons (Mobile only) */}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { VideoProject } from '../types';
-import { X, ExternalLink, Clock, Tag, Film, CheckCircle2 } from 'lucide-react';
+import { X, ExternalLink, Clock, Tag, Film, CheckCircle2, Youtube } from 'lucide-react';
 import { TIKTOK_URL } from '../data/videos';
 
 const TikTokIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
@@ -15,12 +15,44 @@ interface VideoModalProps {
 }
 
 export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const forceFullHDQuality = useCallback(() => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      const cw = iframeRef.current.contentWindow;
+      cw.postMessage(JSON.stringify({ event: 'command', func: 'setPlaybackQuality', args: ['hd1080'] }), '*');
+      cw.postMessage(JSON.stringify({ event: 'command', func: 'setPlaybackQualityRange', args: ['hd1080', 'hd1080'] }), '*');
+      cw.postMessage(JSON.stringify({ event: 'command', func: 'setSuggestedQuality', args: ['hd1080'] }), '*');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!project) return;
+    const handleMsg = (e: MessageEvent) => {
+      try {
+        const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        if (data && (data.event === 'onReady' || data.event === 'initialDelivery' || data.info?.playerState === 1)) {
+          forceFullHDQuality();
+        }
+      } catch {
+        // Ignorer
+      }
+    };
+    window.addEventListener('message', handleMsg);
+    const timers = [400, 1000, 2000, 4000].map((t) => setTimeout(forceFullHDQuality, t));
+    return () => {
+      window.removeEventListener('message', handleMsg);
+      timers.forEach(clearTimeout);
+    };
+  }, [project, forceFullHDQuality]);
+
   if (!project) return null;
 
   const isTikTok = project.isTikTokOnly || project.id === 'vdr-26' || project.id === 'vdr-28' || project.id === 'vdr-29';
   const isTopChef = project.id === 'vdr-26' || project.id === 'vdr-28' || project.id === 'vdr-29' || project.title.toLowerCase().includes('top chef') || project.isTikTokOnly;
   const tiktokId = project.tiktokVideoId || '7666918428006944022';
   const tiktokHref = project.tiktokUrl || `https://www.tiktok.com/@vincent.dos.reis/video/${tiktokId}`;
+  const youtubeWatchUrl = `https://www.youtube.com/watch?v=${project.youtubeId}`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md transition-all animate-fadeIn overflow-y-auto">
@@ -31,7 +63,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
       />
 
       {/* Modal Card */}
-      <div className={`relative w-full ${isTikTok ? 'max-w-2xl' : 'max-w-4xl'} theme-bg-card border theme-border rounded-sm shadow-2xl overflow-hidden z-10 flex flex-col my-auto max-h-[92vh]`}>
+      <div className={`relative w-full ${isTikTok ? 'max-w-2xl' : 'max-w-5xl'} theme-bg-card border theme-border rounded-sm shadow-2xl overflow-hidden z-10 flex flex-col my-auto max-h-[92vh]`}>
         
         {/* Modal Header Bar */}
         <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 theme-bg-header border-b theme-border shrink-0">
@@ -42,7 +74,12 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
                 <span>FORMAT VERTICAL TIKTOK</span>
               </span>
             ) : (
-              <span className="theme-accent-text font-mono font-bold text-xs">[ VIDEO REEL ]</span>
+              <div className="flex items-center space-x-2">
+                <span className="theme-accent-text font-mono font-bold text-xs">[ VIDEO REEL ]</span>
+                <span className="px-1.5 py-0.5 bg-red-600 text-white font-mono font-bold text-[9px] rounded-xs tracking-wider uppercase">
+                  1080p Full HD
+                </span>
+              </div>
             )}
             <span className="text-xs font-mono theme-text-muted font-medium truncate max-w-[150px] sm:max-w-md">
               {project.categoryLabel} · {project.clientOrProject}
@@ -112,11 +149,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
           /* STANDARD LANDSCAPE YOUTUBE PLAYER LAYOUT */
           <div className="relative aspect-video bg-black w-full border-b theme-border shrink-0">
             <iframe
-              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=0&playsinline=1&enablejsapi=1&rel=0`}
+              ref={iframeRef}
+              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=0&playsinline=1&enablejsapi=1&rel=0&vq=hd1080&hd=1`}
               title={project.title}
               className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; autoplay"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; autoplay; fullscreen"
               allowFullScreen
+              onLoad={forceFullHDQuality}
             />
           </div>
         )}
@@ -136,6 +175,20 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
             </div>
 
             <div className="flex flex-wrap items-center gap-2 shrink-0">
+              {!isTikTok && (
+                <a
+                  href={youtubeWatchUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-mono font-bold rounded-sm flex items-center space-x-1.5 transition-colors shadow-sm"
+                  title="Regarder directement sur YouTube en qualité maximale 1080p Full HD"
+                >
+                  <Youtube className="w-3.5 h-3.5" />
+                  <span>VOIR EN 1080p HD SUR YOUTUBE</span>
+                  <ExternalLink className="w-3 h-3 ml-0.5" />
+                </a>
+              )}
+
               <a
                 href={isTikTok ? tiktokHref : (project.tiktokUrl || TIKTOK_URL)}
                 target="_blank"
