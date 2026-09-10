@@ -133,7 +133,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
         >
           <iframe
             ref={iframeRef}
-            src="https://www.youtube.com/embed/E7Rr8J0-u00?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=E7Rr8J0-u00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1&vq=hd1080&hd=1"
+            src={`https://www.youtube.com/embed/E7Rr8J0-u00?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=E7Rr8J0-u00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1&vq=hd1080&hd=1&origin=${typeof window !== 'undefined' ? encodeURIComponent(window.location.origin) : ''}`}
             title="Vincent Dos Reis - Background Video Full HD"
             style={{
               width: '1920px',

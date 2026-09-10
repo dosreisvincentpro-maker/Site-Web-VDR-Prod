@@ -150,7 +150,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
           <div className="relative aspect-video bg-black w-full border-b theme-border shrink-0">
             <iframe
               ref={iframeRef}
-              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=0&playsinline=1&enablejsapi=1&rel=0&vq=hd1080&hd=1`}
+              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=0&playsinline=1&enablejsapi=1&rel=0&vq=hd1080&hd=1&origin=${typeof window !== 'undefined' ? encodeURIComponent(window.location.origin) : ''}`}
               title={project.title}
               className="w-full h-full border-0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; autoplay; fullscreen"
