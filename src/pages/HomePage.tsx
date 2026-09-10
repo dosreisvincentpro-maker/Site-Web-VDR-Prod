@@ -5,6 +5,7 @@ import { VINCENT_BIO } from '../data/about';
 import { SERVICES_DATA } from '../data/services';
 import { VideoCard } from '../components/VideoCard';
 import { ContactForm } from '../components/ContactForm';
+import { ReferencesMarquee } from '../components/ReferencesMarquee';
 import { Play, Youtube, ArrowRight, Phone, Mail, CheckCircle2, MapPin, Volume2, VolumeX } from 'lucide-react';
 import { APP_IMAGES, handleImageError } from '../utils/imageAssets';
 
@@ -496,6 +497,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
         </div>
 
       </section>
+
+
+      {/* SECTION RÉFÉRENCES & COLLABORATIONS - BANDEAU DÉROULANT */}
+      <ReferencesMarquee />
 
 
       {/* CONVERSION SECTION & CONTACT FORM */}

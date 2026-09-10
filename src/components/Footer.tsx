@@ -150,6 +150,20 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                 </button>
               </li>
               <li>
+                <button 
+                  onClick={() => {
+                    handleNavClick('accueil');
+                    setTimeout(() => {
+                      const el = document.getElementById('references');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }} 
+                  className="hover:theme-accent-text transition-colors flex items-center space-x-1 cursor-pointer"
+                >
+                  <span className="theme-text-subtle">›</span> <span className="theme-accent-text font-semibold">Références & Marques</span>
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleNavClick('contact')} className="hover:theme-accent-text transition-colors flex items-center space-x-1 cursor-pointer">
                   <span className="theme-text-subtle">›</span> <span className="theme-accent-text font-semibold">Formulaire de Contact</span>
                 </button>
