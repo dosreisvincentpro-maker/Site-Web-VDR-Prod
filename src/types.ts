@@ -10,6 +10,8 @@ export interface VideoProject {
   categoryLabel: string;
   youtubeId?: string; // YouTube Video ID or playlist reference
   youtubeUrl?: string; // Direct YouTube link to the video/channel
+  vimeoId?: string; // Vimeo Video ID
+  vimeoUrl?: string; // Direct Vimeo link
   tiktokUrl?: string; // Direct TikTok video URL
   tiktokVideoId?: string; // TikTok video ID for embedding
   isTikTokOnly?: boolean; // Flag if video is exclusively TikTok layout

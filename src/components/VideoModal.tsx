@@ -145,6 +145,18 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
               <ExternalLink className="w-4 h-4 text-[#00f2fe] group-hover:text-[#ff0050] transition-colors" />
             </a>
           </div>
+        ) : project.vimeoId ? (
+          /* VIMEO FULL HD 1080p CINEMA PLAYER */
+          <div className="relative aspect-video bg-black w-full border-b theme-border shrink-0">
+            <iframe
+              ref={iframeRef}
+              src={`https://player.vimeo.com/video/${project.vimeoId}?autoplay=1&muted=0&quality=1080p&dnt=1`}
+              title={project.title}
+              className="w-full h-full border-0"
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+              allowFullScreen
+            />
+          </div>
         ) : (
           /* STANDARD LANDSCAPE YOUTUBE PLAYER LAYOUT */
           <div className="relative aspect-video bg-black w-full border-b theme-border shrink-0">
@@ -175,16 +187,29 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose }) => {
             </div>
 
             <div className="flex flex-wrap items-center gap-2 shrink-0">
+              {project.vimeoUrl && (
+                <a
+                  href={project.vimeoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 bg-[#1ab7ea] hover:bg-[#1294bd] text-white text-xs font-mono font-bold rounded-sm flex items-center space-x-1.5 transition-colors shadow-sm"
+                  title="Regarder sur Vimeo en Master 1080p Full HD"
+                >
+                  <span>VOIR SUR VIMEO (1080p)</span>
+                  <ExternalLink className="w-3 h-3 ml-0.5" />
+                </a>
+              )}
+
               {!isTikTok && (
                 <a
                   href={youtubeWatchUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-mono font-bold rounded-sm flex items-center space-x-1.5 transition-colors shadow-sm"
-                  title="Regarder directement sur YouTube en qualité maximale 1080p Full HD"
+                  title="Regarder sur YouTube"
                 >
                   <Youtube className="w-3.5 h-3.5" />
-                  <span>VOIR EN 1080p HD SUR YOUTUBE</span>
+                  <span>VOIR SUR YOUTUBE</span>
                   <ExternalLink className="w-3 h-3 ml-0.5" />
                 </a>
               )}

@@ -81,7 +81,12 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
     const nextMute = !isMuted;
     setIsMuted(nextMute);
     if (iframeRef.current && iframeRef.current.contentWindow) {
-      iframeRef.current.contentWindow.postMessage(
+      const cw = iframeRef.current.contentWindow;
+      // Contrôle natif Vimeo Player
+      cw.postMessage(JSON.stringify({ method: 'setMuted', value: nextMute }), '*');
+      cw.postMessage(JSON.stringify({ method: 'setVolume', value: nextMute ? 0 : 1 }), '*');
+      // Contrôle de secours YouTube
+      cw.postMessage(
         JSON.stringify({
           event: 'command',
           func: nextMute ? 'mute' : 'unMute',
@@ -105,7 +110,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
     featuredProjects[3] = featuredProjects[4];
     featuredProjects[4] = temp;
   }
-  const showreelProject = SHOWREEL_PROJECT || VIDEO_PROJECTS.find((p) => p.youtubeId === 'E7Rr8J0-u00') || VIDEO_PROJECTS[0];
+  const showreelProject = SHOWREEL_PROJECT || VIDEO_PROJECTS.find((p) => p.vimeoId === '1225639671' || p.youtubeId === 'E7Rr8J0-u00') || VIDEO_PROJECTS[0];
 
   return (
     <div className="space-y-20 pb-16">
@@ -133,8 +138,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
         >
           <iframe
             ref={iframeRef}
-            src={`https://www.youtube.com/embed/E7Rr8J0-u00?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=E7Rr8J0-u00&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&playsinline=1&vq=hd1080&hd=1&origin=${typeof window !== 'undefined' ? encodeURIComponent(window.location.origin) : ''}`}
-            title="Vincent Dos Reis - Background Video Full HD"
+            src="https://player.vimeo.com/video/1225639671?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&quality=1080p&dnt=1"
+            title="Vincent Dos Reis - Showreel Bande Démo (1080p Full HD)"
             style={{
               width: '1920px',
               height: '1080px',
@@ -142,9 +147,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo 
               transformOrigin: 'center center',
             }}
             className="absolute top-1/2 left-1/2 pointer-events-none border-0 will-change-transform"
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
             loading="eager"
-            onLoad={forceFullHDQuality}
           />
           <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-[var(--bg-main)]/90 via-[var(--bg-main)]/70 to-[var(--bg-main)]/40 pointer-events-none" />
           <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-transparent to-[var(--bg-main)]/60 pointer-events-none" />          {/* Speaker Sound Toggle & Showreel Buttons (Mobile only) */}
