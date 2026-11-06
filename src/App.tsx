@@ -9,10 +9,17 @@ import { AboutPage } from './pages/AboutPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ContactPage } from './pages/ContactPage';
 import { ThemeProvider } from './context/ThemeContext';
+import { requestFullScreenSafe } from './utils/fullscreen';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState<PageTab>('accueil');
   const [selectedVideo, setSelectedVideo] = useState<VideoProject | null>(null);
+
+  const handleSelectVideo = (video: VideoProject) => {
+    // Au même clic, déclenche le plein écran natif via requestFullscreen
+    requestFullScreenSafe();
+    setSelectedVideo(video);
+  };
 
   // Scroll to top on tab change
   useEffect(() => {
@@ -30,13 +37,14 @@ function AppContent() {
         {activeTab === 'accueil' && (
           <HomePage
             setActiveTab={setActiveTab}
-            onSelectVideo={(video) => setSelectedVideo(video)}
+            onSelectVideo={handleSelectVideo}
+            isVideoModalOpen={!!selectedVideo}
           />
         )}
 
         {activeTab === 'realisations' && (
           <RealisationsPage
-            onSelectVideo={(video) => setSelectedVideo(video)}
+            onSelectVideo={handleSelectVideo}
           />
         )}
 

@@ -14,13 +14,30 @@ const youtubeChannelBg = "https://images.unsplash.com/photo-1574717024653-61fd2c
 interface HomePageProps {
   setActiveTab: (tab: PageTab) => void;
   onSelectVideo: (project: VideoProject) => void;
+  isVideoModalOpen?: boolean;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo }) => {
+export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, onSelectVideo, isVideoModalOpen = false }) => {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
   const videoContainerRef = React.useRef<HTMLDivElement>(null);
   const [videoScale, setVideoScale] = React.useState<number>(1);
   const [isMuted, setIsMuted] = React.useState<boolean>(true);
+
+  // Mettre en pause la vidéo d'arrière-plan quand une vidéo est regardée en plein écran (libère 100% du GPU)
+  React.useEffect(() => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      const cw = iframeRef.current.contentWindow;
+      cw.postMessage(JSON.stringify({ method: isVideoModalOpen ? 'pause' : 'play' }), '*');
+      cw.postMessage(
+        JSON.stringify({
+          event: 'command',
+          func: isVideoModalOpen ? 'pauseVideo' : 'playVideo',
+          args: []
+        }),
+        '*'
+      );
+    }
+  }, [isVideoModalOpen]);
 
   // Forcer la qualité maximale Full HD (1080p) via l'API YouTube
   const forceFullHDQuality = React.useCallback(() => {
