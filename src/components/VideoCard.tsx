@@ -63,10 +63,12 @@ export const VideoCard: React.FC<VideoCardProps> = ({ project, onSelect, showDat
         </div>
 
         {/* Duration Badge */}
-        <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/75 backdrop-blur-sm text-[11px] font-mono text-white border border-white/20 rounded-sm flex items-center space-x-1">
-          <Clock className="w-3 h-3 theme-accent-text" />
-          <span>{project.duration}</span>
-        </div>
+        {project.duration && (
+          <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/75 backdrop-blur-sm text-[11px] font-mono text-white border border-white/20 rounded-sm flex items-center space-x-1">
+            <Clock className="w-3 h-3 theme-accent-text" />
+            <span>{project.duration}</span>
+          </div>
+        )}
 
         {/* Category Badge */}
         <div className="absolute top-3 left-3 px-2.5 py-1 theme-bg-header backdrop-blur-sm text-[10px] font-mono font-bold tracking-wider theme-accent-text border theme-accent-subtle-border rounded-sm shadow-sm">
@@ -84,7 +86,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ project, onSelect, showDat
 
           <h3 
             onClick={() => onSelect(project)}
-            className="text-base sm:text-lg font-bold theme-text-heading group-hover:theme-accent-text transition-colors cursor-pointer"
+            className="text-base sm:text-lg font-bold theme-text-heading group-hover:theme-accent-text transition-colors cursor-pointer whitespace-pre-line"
           >
             {project.title}
           </h3>

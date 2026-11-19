@@ -6,6 +6,24 @@ export const LINKEDIN_URL = "https://www.linkedin.com/in/vincent-dos-reis-4173b1
 export const TIKTOK_URL = "https://www.tiktok.com/@vincent.dos.reis";
 
 export const VIDEO_PROJECTS: VideoProject[] = [
+  // --- NOUVEAUTÉ PORTFOLIO ---
+  {
+    id: "vdr-38",
+    title: 'Publicité "La Raclette"\nSaison 4 EP3',
+    category: "pub",
+    categories: ["pub"],
+    categoryLabel: "Publicité / Film de Marque",
+    youtubeId: "BfDDnBs8pG4",
+    youtubeUrl: "https://youtu.be/BfDDnBs8pG4",
+    duration: "00:35",
+    year: "2026",
+    clientOrProject: "Or en Cash",
+    description: 'Un épisode de la campagne RS pour "Or en Cash"',
+    thumbnail: "https://img.youtube.com/vi/BfDDnBs8pG4/maxresdefault.jpg",
+    role: "Réalisateur, Scénariste & Producteur",
+    featured: false,
+    tags: ["Publicité", "Or en Cash", "La Raclette", "Saison 4", "RS", "2026"]
+  },
   // --- ACCUEIL (6 VIDÉOS EN VEDETTE DANS L'ORDRE DEMANDÉ) ---
   // 1. La signature de l'expert
   {
@@ -576,6 +594,23 @@ export const VIDEO_PROJECTS: VideoProject[] = [
     role: "Réalisateur, Scénariste & Producteur",
     featured: false,
     tags: ["06", "Fiction", "Cinéma", "Court-Métrage", "Cannes", "Festival", "Vincent Dos Reis"]
+  },
+  {
+    id: "vdr-39",
+    title: 'Publicité "Coques de France"',
+    category: "pub",
+    categories: ["pub"],
+    categoryLabel: "Publicité / Film de Marque",
+    youtubeId: "unocWPNgQTw",
+    youtubeUrl: "https://youtu.be/unocWPNgQTw",
+    duration: "01:02",
+    year: "2023",
+    clientOrProject: "CNC - Coques de France",
+    description: 'Écrite et réalisée pour le "Comité National de la Conchyliculture" (CNC)',
+    thumbnail: "https://img.youtube.com/vi/unocWPNgQTw/maxresdefault.jpg",
+    role: "Réalisateur & Scénariste",
+    featured: false,
+    tags: ["Publicité", "CNC", "Coques de France", "Conchyliculture", "Réalisateur", "2023"]
   },
   {
     id: "vdr-showreel",
